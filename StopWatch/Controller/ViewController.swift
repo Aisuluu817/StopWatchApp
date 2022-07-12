@@ -45,15 +45,20 @@ class ViewController: UIViewController {
             isTimer = true
             pickerView.alpha = 0
             stopWatchImage.image = UIImage(systemName: "timer")
+           
      
         case 1 :
             isTimer = false
            pickerView.alpha = 1
            stopWatchImage.image = UIImage(systemName: "stopwatch")
+           
+           
          
         default:
             break
         }
+        playButton.isEnabled = true
+        pauseButton.isEnabled = true
         timerLogic.setIsTimer(isTimer)
    }
     
@@ -107,8 +112,11 @@ class ViewController: UIViewController {
             pickerView.selectRow(0, inComponent: 2, animated: true)
         }
         timer.invalidate()
+        hoursInSec = 0
+        minutesInSec = 0
+        seconds = 0
+        timerLogic.isTime = false
         hasStarted = false
-        timerLogic.setSeconds(sec: 0)
         timeLabel.text = "00:00:00"
         
     }
@@ -121,18 +129,26 @@ class ViewController: UIViewController {
         timer.invalidate()
     }
     
+    func reInit(){
+        
+    }
+    
     @objc func updateCounter(){
+        hasStarted = true
         timeLabel.text = timerLogic.timeFormatted(timerLogic.updateTime)
         if timerLogic.isTime {
             timer.invalidate()
             timeLabel.text = "DONE!"
             playSound()
+           
         }
     }
     func playSound(){
         let url = Bundle.main.url(forResource: "alarm_sound", withExtension: "mp3")
         player = try! AVAudioPlayer(contentsOf: url!)
         player.play()
+        reset()
+        hasStarted = false
     }
 }
 

@@ -17,11 +17,13 @@ struct TimerLogic {
     var updateTime : Int {
     mutating get {
             sec = isTimer ? sec + 1 : sec - 1
-            if !isTimer && sec == 0{
+            if !isTimer && sec <= 0 {
                 isTime = true
                 return 0
             }
-            return sec }
+            return sec
+        
+    }
         set {
             sec = newValue
         }
@@ -37,7 +39,7 @@ struct TimerLogic {
             self.sec = sec
         
     }
-    
+
     func timeFormatted(_ seconds : Int = 0) -> String {
         var timeTuple = ""
         timeTuple.append(String(format: "%02d:", seconds / 3600))
