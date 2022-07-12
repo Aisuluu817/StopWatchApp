@@ -2,7 +2,7 @@
 - timer
 - stopWatch
 - buttons to start, pause, reset
-- pickerView
+- UIPickerView
 - UISegmentedControl
 - computed properties
 
